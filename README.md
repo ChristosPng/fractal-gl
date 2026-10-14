@@ -33,13 +33,16 @@ Dependencies:
 ## Installation & Setup
 
 1. Clone the repository:
+   ```bash
    git clone https://github.com/ChristosPng/fractal-gl.git
    cd fractal-gl
 
 2. Install dependencies:
+   ```bash
    pip install pygame moderngl numpy
 
 3. Run the application:
+   ```bash
    python main.py
 
 ## Controls

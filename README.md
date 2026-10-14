@@ -60,3 +60,4 @@ Dependencies:
 | SPACE | Cycle through preset color palettes |
 | F / F11 | Toggle fullscreen |
 | ESC | Exit application |
+

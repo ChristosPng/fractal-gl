@@ -34,7 +34,7 @@ Dependencies:
 
 1. Clone the repository:
    git clone https://github.com/ChristosPng/fractal-gl.git
-   cd FractalExplorer
+   cd fractal-gl
 
 2. Install dependencies:
    pip install pygame moderngl numpy

@@ -6,7 +6,7 @@ Features continuous logarithmic iteration coloring, smooth mouse panning and tar
 
 ## Downloads
 
-Pre-compiled standalone Windows executables are available under the [Releases](https://github.com/ChristosPng/FractalExplorer/releases) page. No Python or environment setup required.
+Pre-compiled standalone Windows executables are available under the [Releases](https://github.com/ChristosPng/fractal-gl/releases) page. No Python or environment setup required.
 
 ## Features
 
@@ -33,7 +33,7 @@ Dependencies:
 ## Installation & Setup
 
 1. Clone the repository:
-   git clone https://github.com/YOUR_USERNAME/FractalExplorer.git
+   git clone https://github.com/ChristosPng/fractal-gl.git
    cd FractalExplorer
 
 2. Install dependencies:

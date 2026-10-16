@@ -71,12 +71,15 @@ def main():
     fractal_mode = 0 # 0: Mandelbrot, 1: Julia, 2: Burning Ship, 3: Multibrot
     julia_c = (-0.7, 0.27015) # Julia constant
 
+    exponent = 4.0
+
     current_palette_idx = 0
     palette = PALETTES[current_palette_idx]
 
     clock = pygame.time.Clock()
     running = True
     is_fullscreen = False
+    autozoom = False
 
     dragging = False
     last_mouse_pos = (0,0)
@@ -115,6 +118,26 @@ def main():
                     fractal_mode = 3 
                     camera.center_x, camera.center_y, camera.complex_width = 0.0, 0.0, 3.0
                     needs_redraw = True
+                
+                elif event.key == pygame.K_5:
+                    fractal_mode = 4 
+                    camera.center_x, camera.center_y, camera.complex_width = 0.0, 0.0, 3.0
+                    needs_redraw = True
+                    print(f"Dynamic Mode Active | Exponent: {exponent:.1f}")
+
+                # UP arrow increases the exponent
+                elif event.key == pygame.K_UP:
+                    if fractal_mode == 4:
+                        exponent += 0.1
+                        needs_redraw = True
+                        print(f"Exponent: {exponent:.1f}")
+
+                # DOWN arrow decreases the exponent
+                elif event.key == pygame.K_DOWN:
+                    if fractal_mode == 4:
+                        exponent -= 0.1
+                        needs_redraw = True
+                        print(f"Exponent: {exponent:.1f}")
 
                 # 'R' for random Julia const
                 elif event.key == pygame.K_r:
@@ -127,6 +150,10 @@ def main():
                 elif event.key == pygame.K_c:
                     palette = get_random_palette()
                     needs_redraw = True
+
+                # 'Z' to toggle autozoom in cursor direction
+                elif event.key == pygame.K_z:
+                    autozoom = not autozoom
 
                 elif event.key in (pygame.K_F11, pygame.K_f):
                     pygame.display.toggle_fullscreen()
@@ -173,6 +200,15 @@ def main():
                     max_iterations = max(400, int(max_iterations * 0.9))
                 needs_redraw = True
 
+        if autozoom:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+
+            camera.zoom(mouse_x, mouse_y, 0.98)
+
+            max_iterations = min(800, int(max_iterations * 1.01))
+
+            needs_redraw = True
+
         if needs_redraw:
             prog['center'].value = (camera.center_x, camera.center_y)
             prog['complex_width'].value = camera.complex_width
@@ -181,6 +217,9 @@ def main():
 
             prog['u_mode'].value = fractal_mode
             prog['u_julia_c'].value = julia_c
+
+            if 'u_exponent' in prog:
+                prog['u_exponent'].value = float(exponent)
 
             prog['u_a'].value = tuple(palette[0])
             prog['u_b'].value = tuple(palette[1])

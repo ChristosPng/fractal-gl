@@ -55,9 +55,12 @@ Dependencies:
 | 2 | Switch to Julia Set |
 | 3 | Switch to Burning Ship Fractal |
 | 4 | Switch to Multibrot Set (z^3) |
+| 5 | Variable exp value (z^n) (z defined via UP/DOWN buttons)
 | C | Generate a random color palette |
 | R | Generate a new random Julia Set constant |
 | SPACE | Cycle through preset color palettes |
 | F / F11 | Toggle fullscreen |
+| Z| Toggle Autozoom |
 | ESC | Exit application |
+
 

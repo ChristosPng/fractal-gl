@@ -14,6 +14,7 @@ uniform vec3 u_a;
 uniform vec3 u_b;
 uniform vec3 u_c;
 uniform vec3 u_d;
+uniform double u_exponent;
 
 out vec4 out_color;
 
@@ -53,6 +54,7 @@ void main(){
 
     for (int i = 0; i < max_iterations; i++){
         double z_real_sq = z_real * z_real;
+
         double z_imag_sq = z_imag * z_imag;
 
         if (z_real_sq + z_imag_sq > 4.0) {
@@ -73,6 +75,21 @@ void main(){
             next_z_real = z_real * (z_real_sq - 3.0 * z_imag_sq) + c_real;
             next_z_imag = z_imag * (3.0 * z_real_sq - z_imag_sq) + c_imag;
         } 
+        else if (u_mode == 4) {
+            // dynamic Multibrot Z^n + c using Polar Coordinates
+            // cast to float for GLSL trig/pow functions
+            float r = sqrt(float(z_real_sq + z_imag_sq));
+            float theta = atan(float(z_imag), float(z_real));
+            float f_exp = float(u_exponent);
+
+            // apply De Moivre's formula
+            float r_n = pow(r, f_exp);
+            float theta_n = theta * f_exp;
+
+            // cast back to double for precision coordinate addition
+            next_z_real = double(r_n * cos(theta_n)) + c_real;
+            next_z_imag = double(r_n * sin(theta_n)) + c_imag;
+        }
         else {
             // Standard z^2 + c (Mandelbrot or Julia)
             next_z_real = z_real_sq - z_imag_sq + c_real;
